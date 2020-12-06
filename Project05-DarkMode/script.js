@@ -8,6 +8,12 @@ const image2 = document.getElementById('image2');
 const image3 = document.getElementById('image3');
 const textBox = document.getElementById('text-box');
 
+// GLOBAL VARIABLES
+// ================
+const DARK_THEME = 'dark';
+const LIGHT_THEME = 'light';
+
+
 // LOCAL STORAGE - Remembers Theme Setting
 // =============
 const currentTheme = localStorage.getItem('theme');
@@ -23,22 +29,24 @@ if(currentTheme){
 // FUNCTIONS
 // =========
 // switchTheme() - Toggles Background Themes
+// -------------
 function switchTheme(e){
     console.log(e.target.checked);
     if(e.target.checked){
-    document.documentElement.setAttribute('data-theme', 'dark');
-    localStorage.setItem('theme', 'dark');
-    toggleLightDarkMode(true); // Set Nav and Images to Dark Mode
+    document.documentElement.setAttribute('data-theme', DARK_THEME);
+    localStorage.setItem('theme', DARK_THEME);
+    toggleLightDarkMode(DARK_THEME); // Set Nav and Images to Dark Mode
  } else {
-     document.documentElement.setAttribute('data-theme', 'light');
-    localStorage.setItem('theme', 'light');
-    toggleLightDarkMode(false);
+     document.documentElement.setAttribute('data-theme', LIGHT_THEME);
+    localStorage.setItem('theme', LIGHT_THEME);
+    toggleLightDarkMode(LIGHT_THEME);
  }
 }
 
 // toggleLightDarkMode() - Toggle Nav and Images to Light/Dark Model
 // ---------------------
-function toggleLightDarkMode(isDark){
+function toggleLightDarkMode(theme){
+    const isDark = (theme === DARK_THEME) ? true : false;
     nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
     textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
     toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode'
