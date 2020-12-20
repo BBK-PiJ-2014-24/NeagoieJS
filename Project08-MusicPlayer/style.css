@@ -20,7 +20,7 @@ body {
   width: 400px;
   background-color: #e7e7e7;
   border-radius: 20px;
-  box-shadow: 0 15px 30px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 30px 5px rgba(0, 0, 0, 0.3);
 }
 
 .img-container {
@@ -36,11 +36,8 @@ body {
   height: 100%;
   width: 100%;
   border-radius: 20px;
-  box-shadow: 0 5px 30px rgba(0,0,0,0.5);
-
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
 }
-
-
 
 h2 {
   font-size: 25px;
@@ -69,8 +66,7 @@ h3 {
   background: #242323;
   border-radius: 5px;
   height: 100%;
-  /* change this to show progress */
-  width: 66%;
+  width: 0%;
   transition: width 0.1s linear;
 }
 
@@ -109,8 +105,7 @@ h3 {
 
 /* Media Query: iPhone (Vertical) */
 @media screen and (max-width: 376px) {
-
-  .player-container{
+  .player-container {
     width: 95vw;
   }
 
