@@ -42,6 +42,11 @@ let countdownActive; // SetInterval
 // FUNCTIONS
 // =========
 
+// updateDOM()
+// ===========
+// 1. calculate time to deadline
+// 2. Hide input form
+// 3. Set up countdown clock
 function updateDOM(){
     countdownActive = setInterval(() => {
         const now = new Date().getTime();
@@ -71,6 +76,11 @@ function updateDOM(){
 
 }
 
+// updateCoundown()
+// ================
+// 1. Check Form Inputs
+// 2. Put in local storage
+// 3. Run updateDOM to start the countdown clock
 function updateCountdown(e){
     e.preventDefault(); // stops form automatically being sent over the network
     countdownTitle = e.srcElement[0].value;
@@ -90,6 +100,12 @@ function updateCountdown(e){
     }
 }
 
+// resetTimer()
+// ============
+// 1. Hide countdown
+// 2. stop the clock
+// 2. wipe local storage
+// 3. re-show input form
 function resetTimer(){
     countdownEl.hidden = true;
     completeEl.hidden = true;
@@ -100,6 +116,10 @@ function resetTimer(){
     localStorage.removeItem('countdown');
 }
 
+// restorePreviousCountdown()
+// ==========================
+// 1. hide input form
+// 2. restore from local storage
 function restorePreviousCountdown(){
     if(localStorage.getItem('countdown')){
         inputContainer.hidden = true;
