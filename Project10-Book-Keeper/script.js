@@ -12,12 +12,9 @@ const bookmarksContainer = document.getElementById('bookmarks-container');
 // GLOBAL VARIABLES
 // ================
 
-
-
 // LOCAL STORAGE
 // =============
 let bookmarks = [];
-
 
 
 // FUNCTIONS
@@ -56,8 +53,9 @@ function storeBookmark(e){
 // 1. check correct url format with regex
 // 2. check both inputs submitted
 // 3. Add input to bookmark array
-// 4. store to local storage
-// 5. Returns boolean to confirm correct input
+// 4. push bookmark to local storage
+// 5. then fetch all bookmarks from local storage
+// 6.  Finally Returns a boolean to confirm correct input
 function validateForm(nameValue, urlValue){
     var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
@@ -77,9 +75,8 @@ function validateForm(nameValue, urlValue){
     };
 
     bookmarks.push(bookmark); // push new bookmark onto array
-    console.log(bookmarks);
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks)); // update local storage
-    fetchBookmarks();
+    fetchBookmarks(); // then fetch all bookmarks from local storage
     bookmarkForm.reset(); // clear the Form
     websiteNameEl.focus(); // put prompt in first box
 
@@ -89,6 +86,7 @@ function validateForm(nameValue, urlValue){
 // fetchBookmarks()
 // ----------------
 // 1. fetchbookmarks from local storage
+// 2. Call buildBookmarks to construct the HTML structure of each bookmark on the DOM
 function fetchBookmarks(){
     if(localStorage.getItem('bookmarks')){
         bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
@@ -104,11 +102,10 @@ function fetchBookmarks(){
 
 // buildBookmarks
 // --------------
-// 1. Construct the HTML structure for each bookmark  
+// 1. Construct the HTML structure for each bookmark on the DOM
 function buildBookmarks(){
     bookmarksContainer.textContent = ''; // erase prior DOM tree
     bookmarks.forEach((bookmark)=>{
-        console.log('INSIDE builder');
         const {name, url} = bookmark;
         const item = document.createElement('div'); // item
         item.classList.add('item');
