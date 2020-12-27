@@ -16,6 +16,8 @@ let passwordMatch =  false;
 
 // FUNCTIONS// 
 // =========
+// 1. validate form
+// 2. store Form data in a object
 function processFormData(e){
     e.preventDefault();
     console.log(e);
@@ -25,7 +27,10 @@ function processFormData(e){
     }
 }
 
-
+// validateForm()
+// --------------
+// 1. check validation of form
+// 2. check password confirmation
 function validateForm(){
     isValid = form.checkValidity();
     if(!isValid){
@@ -55,6 +60,9 @@ function validateForm(){
     }
 }
 
+// storeFormData()
+// ---------------
+// 1. Create object to form data
 function storeFormData(){
     const user = {
         name: form.name.value,

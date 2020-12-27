@@ -61,6 +61,7 @@ input:invalid {
 }
 
 /* Button */
+/* ------ */
 button {
   cursor: pointer;
   color: white;
@@ -85,6 +86,8 @@ button:focus {
   outline: none;
 }
 
+/* Message Container */
+/* ----------------- */
 .message-container {
   border: 1px solid black;
   border-radius: 5px;
