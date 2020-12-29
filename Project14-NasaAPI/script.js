@@ -9,7 +9,7 @@ const loader = document.querySelector('.loader');
 
 // LOCAL STORAGE
 // =============
-let favorites = {};
+let favorites = {}; // items are kept as attributes in an object(rather than elements in an array) as they are easier to retrieve and delete directly (rather than array where u have to search)
 
 
 // GLOBAL VARIABLES 
@@ -22,6 +22,9 @@ let resultsArray = [];
 
 // FUNCTIONS
 // =========
+
+// getNasaPictures() - API call to NASA
+// -----------------
 async function getNasaPictures(){
     loader.classList.remove('hidden');
     try {
@@ -33,6 +36,11 @@ async function getNasaPictures(){
     }
 }
 
+// showContent()
+// -------------
+// 1. start at the top of the screen
+// 2. set the correct Navbar, either for the API page or the Favorites Page
+// 3. hide the loader image
 function showContent(page){
     window.scrollTo({
         top:0,
@@ -51,18 +59,27 @@ function showContent(page){
 
 }
 
+// updateDOM()
+// ----------
+// 1. Clear textcontent
+// 2. grab favorites from local storage
+// 3. Construct DOM nodes - createDOMNodes()
+// 4. show Content - showContent()
 function updateDOM(page){
+    imagesContainer.textContent = ''; //force refresh data
     
     if(localStorage.getItem('nasaFavorites')){
         favorites = JSON.parse(localStorage.getItem('nasaFavorites'));
     }
-    imagesContainer.textContent = ''; //force refresh data
     createDOMNodes(page);
     showContent(page);
 
 }
 
-
+// createDOMNodes - 
+// --------------
+// 1. Construct elements for 'page' = either API call or the favorites 
+// 2. Append to Nodes in DOM
 function createDOMNodes(page){
     const arr = (page === 'results') ? resultsArray : Object.values(favorites); //favs is converted to an array
     arr.forEach((result)=>{
@@ -118,21 +135,31 @@ function createDOMNodes(page){
     });
 }
 
+// saveFavorite
+// ------------
+// 1. Find the item to save and check it is not already in favorites
+// 2. Save item as an attribute in the favorites object
+// 3. flash an 'ADDED!' card for 2sec
+// 4. Add local storage
 
 function saveFavorite(itemUrl){
     resultsArray.forEach((item)=>{
         if(item.url.includes(itemUrl) && !favorites[itemUrl]){
             favorites[itemUrl] = item; 
-            // console.log(favorites);
-            saveConfirmed.hidden = false;
             setTimeout(()=>{
-                saveConfirmed.hidden = true;
+                saveConfirmed.hidden = false;
             },2000);
+            saveConfirmed.hidden = true;
             localStorage.setItem('nasaFavorites', JSON.stringify(favorites));
         }
     });
 }
 
+// removeFavorite()
+// ----------------
+// 1. Deletes item if found in favorites
+// 2. Updates favorites in local storage
+// 3. Re-render page 
 function removeFavorite(itemURL){
         if(favorites[itemURL]) {
             delete favorites[itemURL];
@@ -143,4 +170,4 @@ function removeFavorite(itemURL){
 
 // ON LOAD
 // =======
- getNasaPictures();
+getNasaPictures();
